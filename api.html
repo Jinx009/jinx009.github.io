@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>api</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+    body{
+      width:96%;
+      margin-left: 2%;
+      margin-top: 5px;
+    }
+    h1{
+      text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <h1>API接口</h1>
+    <h3>1.Router(接收机)注册</h3>
+    <pre>
+    1.链接： /interface/router/register/2_0
+
+    2.访问方式：POST
+
+    3.请求参数示意：
+    {
+        "baseId":"test_mac_001",
+        "sign":"412DBB760B65CAD47A2DF9A9337304A1",
+        "data":{
+              "mac":"test_mac_001",
+              "channelId":"123",
+              "panId":"123",
+              "heartbeatInterval":"60",
+              "interfaceVersion":"2.0",
+              "firmwareVersion":"123",
+              "routerFirmwareVersion":"123",
+              "frequency":"123",
+              "status”:1,//可能不需要传，整数
+              ”operation":1,//可能不需要传，整数
+              "secret":"123",
+              "lastSeenTime":"2016-01-01 01:01:01",
+              "note":"123",
+              "hardwareVersion":"123",
+              "rHardwareVersion":"123"
+          	}
+    }
+
+    4.请求参数说明，sign第一次是由baseId的值加上data的值加上88888888拼接再进行MD5大写加密组成，注册成功会返回params作为以后加密替换88888888进行加密；
+
+    5.返回参数示意
+    {
+      "respCode":"200",
+      "msg":"设备注册成功",
+      "params":"3fc0463e-988b-4c55-b823-c7b640dec133"
+    }
+
+    6.返回参数说明，所有的请求返回200表示成功，其他表示失败。
+  </pre>
+  <h3>2.Router心跳</h3>
+  <pre>
+  1.链接： /interface/router/device/2_0
+
+  2.访问方式：POST
+
+  3.请求参数示意：
+  {
+      "baseId":"test_mac_001",
+      "sign":"412DBB760B65CAD47A2DF9A9337304A1",
+      "data":{
+          "mac":"test_mac_001",
+          "channelId":"123",
+          "panId":"123",
+          "heartbeatInterval":"60",
+          "interfaceVersion":"2.0",
+          "firmwareVersion":"123",
+          "routerFirmwareVersion":"123",
+          "frequency":"123",
+          "status”:1,//可能不需要传，整数
+          ”operation":1,//可能不需要传，整数
+          "secret":"123",
+          "lastSeenTime":"2016-01-01 01:01:01",
+          "note":"123",
+          "hardwareVersion":"123",
+          "rHardwareVersion":"123"
+    	}
+  }
+
+  4.返回参数示意
+  {
+    "respCode":"200",
+    "msg":"",
+    "params":[
+    	{
+    		"id":100,
+    		"cmd":"200",
+    		"target":"200",
+    		"status":0,
+    		"jobDetail":"200",
+    		"timeout":"200",
+        "recSt":"200",
+    		"createTime":"200",
+    },
+    {
+    		"id":100,
+    		"cmd":"200",
+    		"target":"200",
+    		"status":0,
+    		"jobDetail":"200",
+    		"timeout":"200",
+        "recSt":"200",
+    		"createTime":"200",
+    }
+    ]
+  }
+
+  5.返回参数说明
+
+  params里面是需要执行的Job,空代表目前无Job
+  </pre>
+  <h3>3.路口sensor注册</h3>
+  <pre>
+  1.链接：/interface/intersectionSensor/register/2_0
+
+  2.请求类型：POST
+
+  3.请求参数示意：
+  {
+      "baseId":"test_mac_001",
+      "sign":"412DBB760B65CAD47A2DF9A9337304A1",
+      "data":[{//接受数组
+          以下是需要的字段：
+          mac;
+          uid;
+          desc;
+          firmwareVersion;
+          batteryVoltage;
+          xMag;
+          yMag;
+          zMag;
+          baseEnergy;
+          heartBeatInterval;
+          channelId;panId;
+          frequency;
+          parentMac;
+          routerMac;
+          connected;
+          type;
+          addr;
+          mode;
+          hardwareVersion;
+          testTime;
+    	}]
+  }
+
+  4.返回参数示意
+  {
+    "respCode":"200",
+    "msg":""
+  }
+  </pre>
+  <h3>4.路口sensor心跳</h3>
+  <pre>
+  1.链接：/interface/intersectionSensor/device/2_0
+
+  2.请求类型：POST
+
+  3.请求参数示意：
+  {
+      "baseId":"test_mac_001",
+      "sign":"412DBB760B65CAD47A2DF9A9337304A1",
+      "data":[以下是需要的字段：接受数组
+         {mac;
+          uid;
+          desc;
+          firmwareVersion;
+          batteryVoltage;
+          xMag;
+          yMag;
+          zMag;
+          baseEnergy;
+          heartBeatInterval;
+          channelId;panId;
+          frequency;
+          parentMac;
+          routerMac;
+          connected;
+          type;
+          addr;
+          mode;
+          hardwareVersion;
+          testTime;
+    	}]
+  }
+
+  4.返回参数示意
+  {
+    "respCode":"200",
+    "msg":""
+  }
+  </pre>
+  <h3>5.路口sensor业务数据上报</h3>
+  <pre>
+  1.链接：/interface/intersectionSensor/operation/2_0
+
+  2.请求类型：POST
+
+  3.请求参数示意：
+  {
+      "baseId":"test_mac_001",
+      "sign":"412DBB760B65CAD47A2DF9A9337304A1",
+      "data":[{以下是需要的字段：接受数组
+        	mac;
+          lid;//车道，整数
+          carNum;//车辆数
+          pos;//车流方向
+          occupy;//占有率
+          testTime;//测试结算时间
+      }]
+  }
+  4.返回参数示意
+  {
+      "respCode":"200",
+      "msg":""
+  }
+  </pre>
+  <h3>6.更新job状态</h3>
+  <pre>
+  1.链接：/interface/job/status/2_0
+
+  2.请求类型：POST
+
+  3.请求参数示意：
+  {
+      "baseId":"test_mac_001",
+      "sign":"412DBB760B65CAD47A2DF9A9337304A1",
+      "data":[
+      	  {
+          	"id":12,"status":1//1接受，2完成，3失败，4超时
+          },
+      	 {
+            "id":12,"status":1//1接受，2完成，3失败，4超时
+          }
+      ]
+  }
+
+  4.返回参数示意
+  {
+      "respCode":"200",
+      "msg":""
+  }
+  </pre>
+  <h3>7.车进蓝牙设备上报</h3>
+  <pre>
+  1.链接：/interface/bluetooth/status/2_0
+
+  2.请求类型：POST
+
+  3.请求参数示意：
+  {
+      "baseId":"test_mac_001",
+      "sign":"412DBB760B65CAD47A2DF9A9337304A1",
+      "data":{
+          "logId":"2011111111",
+          "bluetooths":[
+              {"id":"blue1"},
+              {"id":"blue2"}
+          ]
+      }
+  }
+
+  4.返回参数示意
+  {
+      "respCode":"200",
+      "msg":""
+  }
+  </pre>
+  <h3>8.范围停车数据上报</h3>
+  <pre>
+  1.链接：/interface/bike/status/2_0
+
+  2.请求类型：POST
+
+  3.请求参数示意：
+  {
+      "baseId":"test_mac_001",
+      "sign":"412DBB760B65CAD47A2DF9A9337304A1",
+      "data":{
+          [
+              {"id":"bike1"},
+              {"id":"bike2"}
+          ]
+      }
+  }
+
+  4.返回参数示意
+  {
+      "respCode":"200",
+      "msg":""
+  }
+
+  5.备注
+  每隔指定时间上报区域范围内的车辆信息数组
+  </pre>
+</body>
+</html>
