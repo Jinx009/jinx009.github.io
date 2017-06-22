@@ -256,7 +256,7 @@
   </pre>
   <h3>7.车进蓝牙设备上报</h3>
   <pre>
-  1.链接：/interface/bluetooth/status/2_0
+  1.链接：/interface/bluetooth/status/1_0
 
   2.请求类型：POST
 
@@ -266,9 +266,10 @@
       "sign":"412DBB760B65CAD47A2DF9A9337304A1",
       "data":{
           "logId":"2011111111",
+          "status":"0",//车进车出标识，0表示车出，1表示车进
           "bluetooths":[
-              {"id":"blue1"},
-              {"id":"blue2"}
+              {"id":"blue1","signal":"-90"},//signal表示信号强度
+              {"id":"blue2","signal":"-90"}
           ]
       }
   }
@@ -281,7 +282,7 @@
   </pre>
   <h3>8.范围停车数据上报</h3>
   <pre>
-  1.链接：/interface/bike/status/2_0
+  1.链接：/interface/bike/status/1_0
 
   2.请求类型：POST
 
@@ -291,8 +292,8 @@
       "sign":"412DBB760B65CAD47A2DF9A9337304A1",
       "data":{
           [
-              {"id":"bike1"},
-              {"id":"bike2"}
+              {"id":"bike1","signal":"-90"},
+              {"id":"bike2","signal":"80"}
           ]
       }
   }
