@@ -307,5 +307,42 @@
   5.备注
   每隔指定时间上报区域范围内的车辆信息数组
   </pre>
+  <h3>9.激活上报蓝牙扫描情况</h3>
+  <pre>
+  1.链接：
+
+  2.请求类型：GET
+
+  3.返回参数示意
+  {
+      "respCode":"00",
+      "params":{
+        "target":"routerMac",
+        "jobDetail":{
+           "mac":"routerMac"
+        },
+        "cmd":"bscan"
+      }
+  }
+  <h3>10.设置蓝牙设备上报前扫描次数及时长</h3>
+  <pre>
+  1.链接：
+
+  2.请求类型：GET
+
+  3.返回参数示意
+  {
+      "respCode":"00",
+      "params":{
+        "target":"routerMac",
+        "jobDetail":{
+           "mac":"routerMac",
+           "frequency":"3",//扫描次数
+           "interval":"30"//间隔时长
+        },
+        "cmd":"bscanparams"
+      }
+  }
+  </pre>
 </body>
 </html>
