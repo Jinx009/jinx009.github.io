@@ -254,7 +254,7 @@
       "msg":""
   }
   </pre>
-  <h3>7.车进蓝牙设备上报</h3>
+  <h3>7.车进车出蓝牙设备上报</h3>
   <pre>
   1.链接：/interface/bluetooth/status/1_0
 
@@ -265,11 +265,12 @@
       "baseId":"test_mac_001",
       "sign":"412DBB760B65CAD47A2DF9A9337304A1",
       "data":{
-          "logId":"2011111111",
+          "mac":"xxx"//发生车位变动的地磁mac
+          "reportTime":"11111111",//数据产生时间戳
           "status":"0",//车进车出标识，0表示车出，1表示车进
           "bluetooths":[
-              {"id":"blue1","signal":"-90"},//signal表示信号强度
-              {"id":"blue2","signal":"-90"}
+              {"uuid":"blue1","signal":"-90"},//signal表示信号强度
+              {"uuid":"blue2","signal":"-90"}
           ]
       }
   }
@@ -291,9 +292,11 @@
       "baseId":"test_mac_001",
       "sign":"412DBB760B65CAD47A2DF9A9337304A1",
       "data":{
-          [
-              {"id":"bike1","signal":"-90"},
-              {"id":"bike2","signal":"80"}
+          "mac":"xxx",//数据监测来源地磁mac如果是接收机可为空
+          "reportTime":"11111111",//数据产生时间戳
+          "bluetooths":[
+              {"uuid":"bike1","signal":"-90"},
+              {"uuid":"bike2","signal":"80"}
           ]
       }
   }
